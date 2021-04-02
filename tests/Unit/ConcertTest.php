@@ -22,11 +22,8 @@ class ConcertTest extends TestCase
             'date' => Carbon::parse('2021-12-01'),
         ]);
 
-        // Retrieve the formated date
-        $date = $concert->formatted_date;
 
-        //Verify the date is formated as expected
-        $this->assertEquals('December 1, 2021', $date);
+        $this->assertEquals('December 1, 2021', $concert->formatted_date);
     }
 
 }
