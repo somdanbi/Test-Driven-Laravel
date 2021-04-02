@@ -12,13 +12,13 @@ use Tests\TestCase;
 class ConcertTest extends TestCase
 {
 
-    use DatabaseMigrations, DatabaseTransactions;
+//    use DatabaseMigrations, DatabaseTransactions;
 
     /** @test */
     function can_get_formatted_date()
     {
         // Create a concert with a know date
-        $concert = factory(Concert::class)->create([
+        $concert = factory(Concert::class)->make([
             'date' => Carbon::parse('2021-12-01'),
         ]);
 
@@ -29,7 +29,7 @@ class ConcertTest extends TestCase
     function can_get_start_time()
     {
         // Create a concert with a know date
-        $concert = factory(Concert::class)->create([
+        $concert = factory(Concert::class)->make([
             'date' => Carbon::parse('2021-12-01 17:00:00'),
         ]);
 
@@ -39,7 +39,7 @@ class ConcertTest extends TestCase
     /** @test */
     function can_get_ticket_price_in_dollars()
     {
-        $concert = factory(Concert::class)->create([
+        $concert = factory(Concert::class)->make([
             'ticket_price' => 6750,
         ]);
 
