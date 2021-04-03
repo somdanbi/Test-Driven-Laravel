@@ -40,10 +40,28 @@ $factory->define(App\Concert::class, function (Faker $faker) {
     ];
 });
 
-
-$factory->state(App\Concert::class, 'published', function (Faker $faker) {
+/*
+|--------------------------------------------------------------------------
+|  PUBLISHED
+|--------------------------------------------------------------------------
+|
+*/
+$factory->state(App\Concert::class, 'published', function () {
     return [
         'published_at' => \Carbon\Carbon::parse('-1 week'),
+
+    ];
+});
+
+/*
+|--------------------------------------------------------------------------
+|  UNPUBLISHED
+|--------------------------------------------------------------------------
+|
+*/
+$factory->state(App\Concert::class, 'unpublished', function () {
+    return [
+        'published_at' => null,
 
     ];
 });
