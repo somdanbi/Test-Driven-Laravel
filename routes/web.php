@@ -15,3 +15,6 @@
 Route::get('/concerts/{id}', 'ConcertsController@show')->name('concerts.show');
 
 Route::post('/concerts/{id}/orders', 'ConcertOrdersController@store');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
