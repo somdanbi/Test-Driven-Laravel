@@ -24,7 +24,7 @@ class PurchaseTicketsTest extends TestCase
         $concert = factory(Concert::class)->create([ 'ticket_price' => 3250 ]);
 
         //Act: purchase the ticket
-        $this->json('POST', "/concerts/{$concert->id}/orders", [
+        $this->postJson("/concerts/{$concert->id}/orders", [
             'email'           => 'manut@example.org',
             'ticket_quantity' => 3,
             'payment_token'   => $paymentGateway->getValidTestToken(),
@@ -39,7 +39,7 @@ class PurchaseTicketsTest extends TestCase
 
         $this->assertNotNull($order);
 
-        $this->assertEquals(3, $order->tickets->count());
+        $this->assertEquals(3, $order->tickets()->count());
     }
 
 
