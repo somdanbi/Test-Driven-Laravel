@@ -12,9 +12,12 @@
 */
 
 //Route::get('/concerts/{concert}','ConcertsController@show');
-Route::get('/concerts/{id}', 'ConcertsController@show')->name('concerts.show');
-
-Route::post('/concerts/{id}/orders', 'ConcertOrdersController@store');
 Auth::routes();
+Route::get('/home', 'HomeController@create')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/concerts/{id}', 'ConcertsController@show')->name('concerts.show');
+//Route::post('/concerts/', 'HomeController@store')->name('concerts.store');
+
+Route::post('/concerts/{id}/orders', 'ConcertOrdersController@store')->name('concerts.store');
+
+
