@@ -16,8 +16,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@create')->name('home');
 
 Route::get('/concerts/{id}', 'ConcertsController@show')->name('concerts.show');
-//Route::post('/concerts/', 'HomeController@store')->name('concerts.store');
 
-Route::post('/concerts/{id}/orders', 'ConcertOrdersController@store')->name('concerts.store');
+Route::post('/concerts/{id}/orders', 'ConcertOrdersController@store');
 
 
