@@ -19,7 +19,9 @@ class ConcertOrdersController extends Controller
     {
 
         $this->validate(request(), [
-            'email' => 'required',
+            'email'           => 'required|email',
+            'ticket_quantity' => 'required|numeric|min:1',
+            'payment_token'   => 'required',
         ]);
         $concert = Concert::find($concertId);
 
