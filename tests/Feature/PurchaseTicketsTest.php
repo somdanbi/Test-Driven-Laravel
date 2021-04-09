@@ -27,7 +27,13 @@ class PurchaseTicketsTest extends TestCase
         return $this->json('POST', "/concerts/{$concert->id}/orders", $params);
     }
 
-    
+    private function assertValidationError(string $field, $response)
+    {
+        $response->assertStatus(422);
+        self::assertArrayHasKey($field, $response->decodeResponseJson()[ 'errors' ]);
+    }
+
+
     /** @test */
     public function customer_can_purchase_concerts_tickets(): void
     {
@@ -71,8 +77,7 @@ class PurchaseTicketsTest extends TestCase
               'payment_token'   => $this->paymentGateway->getValidTestToken(), ]
         );
 
-        $response->assertStatus(422);
-        self::assertArrayHasKey('email', $response->decodeResponseJson()[ 'errors' ]);
+        $this->assertValidationError('email', $response);
     }
 
     /** @test */
@@ -90,8 +95,7 @@ class PurchaseTicketsTest extends TestCase
             ]
         );
 
-        $response->assertStatus(422);
-        self::assertArrayHasKey('email', $response->decodeResponseJson()[ 'errors' ]);
+        $this->assertValidationError('email', $response);
     }
 
     /** @test */
@@ -107,8 +111,7 @@ class PurchaseTicketsTest extends TestCase
             ]
         );
 
-        $response->assertStatus(422);
-        self::assertArrayHasKey('ticket_quantity', $response->decodeResponseJson()[ 'errors' ]);
+        $this->assertValidationError('ticket_quantity', $response);
     }
 
     /** @test */
@@ -125,8 +128,7 @@ class PurchaseTicketsTest extends TestCase
             ]
         );
 
-        $response->assertStatus(422);
-        self::assertArrayHasKey('ticket_quantity', $response->decodeResponseJson()[ 'errors' ]);
+        $this->assertValidationError('ticket_quantity', $response);
     }
 
     /** @test */
@@ -142,8 +144,7 @@ class PurchaseTicketsTest extends TestCase
             ]
         );
 
-        $response->assertStatus(422);
-        self::assertArrayHasKey('payment_token', $response->decodeResponseJson()[ 'errors' ]);
+        $this->assertValidationError('payment_token', $response);
     }
 
 
