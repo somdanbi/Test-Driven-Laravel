@@ -22,7 +22,12 @@ class PurchaseTicketsTest extends TestCase
         $this->app->instance(PaymentGateway::class, $this->paymentGateway);
     }
 
+    private function orderTickets($concert, array $params)
+    {
+        return $this->json('POST', "/concerts/{$concert->id}/orders", $params);
+    }
 
+    
     /** @test */
     public function customer_can_purchase_concerts_tickets(): void
     {
@@ -60,9 +65,8 @@ class PurchaseTicketsTest extends TestCase
     {
         $concert = factory(Concert::class)->state('published')->create();
 
-        $response = $this->json(
-            'POST',
-            "/concerts/{$concert->id}/orders",
+        $response = $this->orderTickets(
+            $concert,
             [ 'ticket_quantity' => 3,
               'payment_token'   => $this->paymentGateway->getValidTestToken(), ]
         );
@@ -95,9 +99,8 @@ class PurchaseTicketsTest extends TestCase
     {
         $concert = factory(Concert::class)->state('published')->create();
 
-        $response = $this->json(
-            'POST',
-            "/concerts/{$concert->id}/orders",
+        $response = $this->orderTickets(
+            $concert,
             [
                 'email'         => 'jane@example.com',
                 'payment_token' => $this->paymentGateway->getValidTestToken(),
@@ -113,9 +116,8 @@ class PurchaseTicketsTest extends TestCase
     {
         $concert = factory(Concert::class)->state('published')->create();
 
-        $response = $this->json(
-            'POST',
-            "/concerts/{$concert->id}/orders",
+        $response = $this->orderTickets(
+            $concert,
             [
                 'email'           => 'jane@example.com',
                 'ticket_quantity' => 0,
@@ -132,9 +134,8 @@ class PurchaseTicketsTest extends TestCase
     {
         $concert = factory(Concert::class)->state('published')->create();
 
-        $response = $this->json(
-            'POST',
-            "/concerts/{$concert->id}/orders",
+        $response = $this->orderTickets(
+            $concert,
             [
                 'email'           => 'jane@example.com',
                 'ticket_quantity' => 1,
